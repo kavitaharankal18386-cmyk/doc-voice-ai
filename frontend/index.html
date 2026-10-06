@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Sharma's Clinic - AI Receptionist</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="script.js">
+</head>
+
+<body>
+
+    <header>
+        <h1>Dr. Sharma's Clinic</h1>
+        <p>AI Receptionist Dashboard</p>
+    </header>
+
+    <main>
+
+        <section class="stats">
+            <div class="card">
+                <h3>Today's Appointments</h3>
+                <p>12</p>
+            </div>
+
+            <div class="card">
+                <h3>Confirmed</h3>
+                <p>10</p>
+            </div>
+
+            <div class="card">
+                <h3>Pending</h3>
+                <p>2</p>
+            </div>
+
+            <div class="card">
+                <h3>AI Status</h3>
+                <p>🟢 Online</p>
+            </div>
+        </section>
+
+        <section class="appointments">
+            <h2>Today's Appointments</h2>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="search patient...."
+                >
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Phone</th>
+                        <th>Appointment Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Rahul Patil</td>
+                        <td>9876543210</td>
+                        <td>11:30 AM</td>
+                        <td>Confirmed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Priya Sharma</td>
+                        <td>9123456789</td>
+                        <td>12:00 PM</td>
+                        <td>Confirmed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</body>
+</html>
