@@ -4,11 +4,9 @@ from sqlalchemy.orm import Session
 from twilio.rest import Client
 
 try:
-    from app.database import get_db
-    from app.models import AppointmentDB
+    from app.database import get_db, AppointmentDB
 except ModuleNotFoundError:
-    from database import get_db
-    from models import AppointmentDB
+    from database import get_db, AppointmentDB
 
 router = APIRouter()
 
