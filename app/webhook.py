@@ -77,6 +77,7 @@ def receive_appointment(
         "message": "Appointment saved and WhatsApp sent successfully!",
         "appointment_id": new_appointment.id
     }
-    @router.get("/api/appointments")
+@router.get("/api/appointments")
 def get_appointments(db: Session = Depends(get_db)):
     return db.query(AppointmentDB).all()
+    
