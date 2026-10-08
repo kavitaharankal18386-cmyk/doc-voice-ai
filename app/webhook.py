@@ -2,7 +2,7 @@ import os
 from fastapi import APIRouter, Request, Depends
 from sqlalchemy.orm import Session
 from twilio.rest import Client
-from database import get_db, AppointmentDB
+from app.database import get_db, AppointmentDB
 
 router = APIRouter()
 
