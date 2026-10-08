@@ -3,14 +3,11 @@ from fastapi import APIRouter, Request, Depends
 from sqlalchemy.orm import Session
 from twilio.rest import Client
 
-try:
-    from app.database import get_db, AppointmentDB
-except ModuleNotFoundError:
-    from database import get_db, AppointmentDB
+from app.database import get_db
+from app.models import AppointmentDB
 
 router = APIRouter()
 
-# Twilio Credentials
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "YOUR_TWILIO_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "YOUR_TWILIO_TOKEN")
 TWILIO_WHATSAPP_NUMBER = "whatsapp:+14155238886"
