@@ -2,20 +2,24 @@ import os
 from fastapi import APIRouter, Request, Depends
 from sqlalchemy.orm import Session
 from twilio.rest import Client
-from app.database import get_db, AppointmentDB
+
+try:
+    from app.database import get_db
+    from app.models import AppointmentDB
+except ModuleNotFoundError:
+    from database import get_db
+    from models import AppointmentDB
 
 router = APIRouter()
 
-# Twilio Credentials (Environment Variables kinva Direct Hardcode)
+# Twilio Credentials
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "YOUR_TWILIO_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "YOUR_TWILIO_TOKEN")
-TWILIO_WHATSAPP_NUMBER = "whatsapp:+14155238886"  # Standard Twilio Sandbox Number
+TWILIO_WHATSAPP_NUMBER = "whatsapp:+14155238886"
 
 def send_whatsapp_confirmation(to_number: str, patient_name: str, appointment_time: str):
     try:
         client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-        
-        # Phone number WhatsApp format madhe convert kara
         formatted_number = to_number if to_number.startswith("whatsapp:") else f"whatsapp:{to_number}"
         
         message_body = (
@@ -41,22 +45,21 @@ async def handle_appointment(request: Request, db: Session = Depends(get_db)):
         data = await request.json()
         print("Received Webhook Data:", data)
         
-        # Bolna AI kaddun yenara JSON payload extract kara
         patient_name = data.get("patient_name", "Patient")
         phone_number = data.get("phone_number", "")
         appointment_time = data.get("appointment_time", "Today")
+        call_id = data.get("call_id", None)
         
-        # Database madhe record save kara
         new_appointment = AppointmentDB(
             patient_name=patient_name,
             phone_number=phone_number,
-            appointment_time=appointment_time
+            appointment_time=appointment_time,
+            call_id=call_id
         )
         db.add(new_appointment)
         db.commit()
         db.refresh(new_appointment)
         
-        # WhatsApp Message Pathva
         if phone_number:
             send_whatsapp_confirmation(
                 to_number=phone_number,
